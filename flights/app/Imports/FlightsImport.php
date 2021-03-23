@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Models\Flight;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class FlightsImport implements ToModel, WithBatchInserts
+class FlightsImport implements ToModel, WithBatchInserts, WithChunkReading
 {
     /**
     * @param array $row
@@ -39,6 +40,11 @@ class FlightsImport implements ToModel, WithBatchInserts
     }
 
     public function batchSize(): int
+    {
+        return 1000;
+    }
+
+    public function chunkSize(): int
     {
         return 1000;
     }

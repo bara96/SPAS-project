@@ -24,11 +24,11 @@ class Controller extends BaseController
     public function import()
     {
         try {
-            for ($i=1; $i<=20; $i++)
-                Excel::import(new FlightsImport(), "csv/flights_$i.csv", 'public', \Maatwebsite\Excel\Excel::CSV);
+            Excel::import(new FlightsImport(), "flights.csv", 'public', \Maatwebsite\Excel\Excel::CSV);
             return redirect()->route('index', ['success' => 1]);
         }
         catch (\Exception $exception) {
+            throw $exception;
             return redirect()->route('index', ['error' => 1]);
         }
     }

@@ -11,8 +11,7 @@ class Flight extends Model
 
     const TABLE = 'flights';
 
-    const ID = "id";
-    const TRANSACTION_ID = "transaction_id";
+    const ID = "transaction_id";
     const YEAR = "year";
     const DAY_OF_WEEK = "day_of_week";
     const FLIGHT_DATE = "flight_date";
@@ -41,7 +40,6 @@ class Flight extends Model
      * @var array
      */
     protected $fillable = [
-        self::TRANSACTION_ID,
         self::YEAR,
         self::DAY_OF_WEEK,
         self::FLIGHT_DATE,

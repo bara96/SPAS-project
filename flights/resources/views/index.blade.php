@@ -22,41 +22,52 @@
                 </div>
             </div>
 
+            @if (isset($success))
+                <div class="alert alert-success" role="alert">
+                    {{ $success }}
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-md-12 mb-4 text-center">
                     <h1>Flights</h1>
                 </div>
-                <div class="col-md-12">
-                    @if(!empty($records))
-                    <table class="table table-dark">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Transaction ID</th>
-                            <th scope="col">Flight Date</th>
-                            <th scope="col">Origin</th>
-                            <th scope="col">Destination
-                            <th scope="col">Cancelled</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($flights as $flight)
-                        <tr>
-                            <th scope="row">{{ $flight->id }}</th>
-                            <th scope="row">{{ $flight->transaction_id }}</th>
-                            <td>{{ $flight->flight_date }}</td>
-                            <td>{{ $flight->origin }}</td>
-                            <td>{{ $flight->dest }}</td>
-                            <td>{{ $flight->cancelled == 1 ? '✔' : '✘' }}</td>
-                        </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                <div class="col-md-12 mb-4">
+                    @if(!empty($flights) && count($flights) > 0)
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Flight Date</th>
+                                <th scope="col">Origin</th>
+                                <th scope="col">Destination
+                                <th scope="col">Cancelled</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($flights as $flight)
+                                <tr>
+                                    <th scope="row">{{ $flight->transaction_id }}</th>
+                                    <td>{{ $flight->flight_date }}</td>
+                                    <td>{{ $flight->origin }}</td>
+                                    <td>{{ $flight->dest }}</td>
+                                    <td>{{ $flight->cancelled == 1 ? '✔' : '✘' }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <div class="offset-3 col-md-6 text-center">
+                            {{ $flights->links() }}
+                        </div>
+
                     @else
                         <div class="text-center">
                             <h3>No flights are found</h3>
                         </div>
                     @endif
+                </div>
+                <div class="col-md-12 mb-4 text-center">
+                    <a href="{{ route('import') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Import Flights</a>
                 </div>
             </div>
     </div>

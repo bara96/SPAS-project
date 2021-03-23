@@ -27,7 +27,7 @@ Each flight must be described by the following fields:
 - _AIR_TIME_: length of the flight
 
 The web app must work as a micro service providing a RESTful implementation based on HTTP and JSON.  
-The following queries myst be implemented:
+The following queries must be implemented:
 1. Given flight date and flight number, return the delay of departure and landing.  
 2. Given a date interval and a minimum delay D, return the description of the flights (id, data, source city, destination city) with a delay of at least D minutes within the time interval specified.
 3. Given a time interval and a positive integer n, return the n airports which had the highest percentage of delayed departures (delayed departures/total departures).  

@@ -20,16 +20,4 @@ class Controller extends BaseController
 
         return view('index', ['flights' => $flights]);
     }
-
-    public function import()
-    {
-        try {
-            for ($i=1; $i<=20; $i++)
-                Excel::import(new FlightsImport(), "csv/flights_$i.csv", 'public', \Maatwebsite\Excel\Excel::CSV);
-            return redirect()->route('index', ['success' => 1]);
-        }
-        catch (\Exception $exception) {
-            return redirect()->route('index', ['error' => 1]);
-        }
-    }
 }

@@ -15,5 +15,3 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [Controller::class, 'index'])->name('index');
-
-Route::get('/import', [Controller::class, 'import'])->name('import');

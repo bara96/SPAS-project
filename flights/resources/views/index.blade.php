@@ -21,23 +21,6 @@
                 </div>
             </div>
 
-            @if (request()->get('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
-                <strong>Success!</strong> Data imported data successfully!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @elseif(request()->get('error'))
-            <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
-                <strong>Error!</strong>  Error while importing data!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
-
-
             <div class="row mt-4">
                 <div class="col-md-12 mb-4 text-center">
                     <h1>Flights</h1>
@@ -83,9 +66,6 @@
                             <h3>No flights are found</h3>
                         </div>
                     @endif
-                </div>
-                <div class="col-md-12 mb-4 text-center">
-                    <a href="{{ route('import') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Import Flights</a>
                 </div>
             </div>
         @include("commons/foot")

@@ -16,25 +16,25 @@ class CreateFlightsTable extends Migration
     {
         Schema::create(Flight::TABLE, function (Blueprint $table) {
             $table->increments(Flight::ID);
-            $table->string(Flight::YEAR);
-            $table->string(Flight::DAY_OF_WEEK);
-            $table->string(Flight::FLIGHT_DATE);
-            $table->string(Flight::OP_CARRIER_FL_NUM);
-            $table->string(Flight::OP_CARRIER_AIRLINE_ID);
-            $table->string(Flight::ORIGIN_AIRPORT_ID);
-            $table->string(Flight::ORIGIN);
-            $table->string(Flight::ORIGIN_CITY_NAME);
-            $table->string(Flight::ORIGIN_STATE_NM);
-            $table->string(Flight::DEST_AIRPORT_ID);
-            $table->string(Flight::DEST);
-            $table->string(Flight::DEST_CITY_NAME);
-            $table->string(Flight::DEST_STATE_NM);
-            $table->string(Flight::DEP_TIME);
-            $table->string(Flight::DEP_DELAY);
-            $table->string(Flight::ARR_TIME);
-            $table->string(Flight::ARR_DELAY);
-            $table->string(Flight::CANCELLED);
-            $table->string(Flight::AIR_TIME);
+            $table->string(Flight::YEAR)->nullable();
+            $table->string(Flight::DAY_OF_WEEK)->nullable();
+            $table->string(Flight::FLIGHT_DATE)->nullable();
+            $table->string(Flight::OP_CARRIER_FL_NUM)->nullable();
+            $table->string(Flight::OP_CARRIER_AIRLINE_ID)->nullable();
+            $table->string(Flight::ORIGIN_AIRPORT_ID)->nullable();
+            $table->string(Flight::ORIGIN)->nullable();
+            $table->string(Flight::ORIGIN_CITY_NAME)->nullable();
+            $table->string(Flight::ORIGIN_STATE_NM)->nullable();
+            $table->string(Flight::DEST_AIRPORT_ID)->nullable();
+            $table->string(Flight::DEST)->nullable();
+            $table->string(Flight::DEST_CITY_NAME)->nullable();
+            $table->string(Flight::DEST_STATE_NM)->nullable();
+            $table->string(Flight::DEP_TIME)->nullable();
+            $table->string(Flight::DEP_DELAY)->nullable();
+            $table->string(Flight::ARR_TIME)->nullable();
+            $table->string(Flight::ARR_DELAY)->nullable();
+            $table->string(Flight::CANCELLED)->nullable();
+            $table->string(Flight::AIR_TIME)->nullable();
             $table->timestamps();
         });
     }

@@ -3,7 +3,6 @@
     @include("commons/head")
     <body class="antialiased">
     <div class="container">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             <div class="row mb-4">
                 <div class="col-md-12">
                     @if (Route::has('login'))
@@ -22,13 +21,24 @@
                 </div>
             </div>
 
-            @if (isset($success))
-                <div class="alert alert-success" role="alert">
-                    {{ $success }}
-                </div>
+            @if (request()->get('success'))
+            <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                <strong>Success!</strong> Data imported data successfully!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @elseif(request()->get('error'))
+            <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+                <strong>Error!</strong>  Error while importing data!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             @endif
 
-            <div class="row">
+
+            <div class="row mt-4">
                 <div class="col-md-12 mb-4 text-center">
                     <h1>Flights</h1>
                 </div>
@@ -40,7 +50,11 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Flight Date</th>
                                 <th scope="col">Origin</th>
-                                <th scope="col">Destination
+                                <th scope="col">Origin City</th>
+                                <th scope="col">Origin State</th>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Destination City</th>
+                                <th scope="col">Destination State</th>
                                 <th scope="col">Cancelled</th>
                             </tr>
                             </thead>
@@ -49,8 +63,12 @@
                                 <tr>
                                     <th scope="row">{{ $flight->transaction_id }}</th>
                                     <td>{{ $flight->flight_date }}</td>
-                                    <td>{{ $flight->origin }}</td>
+                                    <td>{{ $flight->origin }}
+                                    <td>{{ $flight->origin_city_name }}</td>
+                                    <td>{{ $flight->origin_state_nm }}</td>
                                     <td>{{ $flight->dest }}</td>
+                                    <td>{{ $flight->dest_city_name }}</td>
+                                    <td>{{ $flight->dest_state_nm }}</td>
                                     <td>{{ $flight->cancelled == 1 ? '✔' : '✘' }}</td>
                                 </tr>
                             @endforeach
@@ -70,7 +88,6 @@
                     <a href="{{ route('import') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Import Flights</a>
                 </div>
             </div>
-    </div>
         @include("commons/foot")
     </body>
 </html>

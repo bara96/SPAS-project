@@ -16,15 +16,20 @@ class Controller extends BaseController
 
     public function index()
     {
-        $flights = Flight::paginate(5);
+        $flights = Flight::paginate(20);
 
         return view('index', ['flights' => $flights]);
     }
 
     public function import()
     {
-        Excel::import(new FlightsImport(), 'flights_test.csv', 'public', \Maatwebsite\Excel\Excel::CSV);
-
-        return redirect('/')->with('success', 'All good!');
+        try {
+            for ($i=1; $i<=20; $i++)
+                Excel::import(new FlightsImport(), "csv/flights_$i.csv", 'public', \Maatwebsite\Excel\Excel::CSV);
+            return redirect()->route('index', ['success' => 1]);
+        }
+        catch (\Exception $exception) {
+            return redirect()->route('index', ['error' => 1]);
+        }
     }
 }

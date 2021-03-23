@@ -28,7 +28,6 @@ class Controller extends BaseController
             return redirect()->route('index', ['success' => 1]);
         }
         catch (\Exception $exception) {
-            throw $exception;
             return redirect()->route('index', ['error' => 1]);
         }
     }

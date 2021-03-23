@@ -12,10 +12,11 @@ Laravel project is under the folder: **flights**
 Download [pgsql](https://www.postgresql.org/download/) and setup a db
 
 ##Step 4
-  - On CLI, switch to the **flights** folder
-  - Edit the file <code> .env </code> with your db configurations
-  - Run the command <code> composer update </code>
+- On CLI, switch to the **flights** folder
+- Edit the file <code> .env </code> with your db configurations
+- Run the command <code> composer update </code>
+- Run the command <code> php artisan key:generate </code>
 
 ##Step 5
-  - Run the command <code> php artisan serve </code>
-  - Browse to  http://127.0.0.1:8000/
+- Run the command <code> php artisan serve </code>
+- Browse to  http://127.0.0.1:8000/

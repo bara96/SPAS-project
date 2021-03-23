@@ -3,12 +3,16 @@
 namespace App\Imports;
 
 use App\Models\Flight;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithProgressBar;
 
-class FlightsImport implements ToModel, WithBatchInserts, WithChunkReading
+class FlightsImport implements ToModel, WithProgressBar, WithBatchInserts, WithChunkReading
 {
+    use Importable;
+
     /**
     * @param array $row
     *
@@ -41,11 +45,11 @@ class FlightsImport implements ToModel, WithBatchInserts, WithChunkReading
 
     public function batchSize(): int
     {
-        return 1000;
+        return 2000;
     }
 
     public function chunkSize(): int
     {
-        return 1000;
+        return 4000;
     }
 }

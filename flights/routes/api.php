@@ -19,4 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('flight', [FlightsController::class, 'getFlights'])->name('getFlights');
+Route::get('flight/{id?}', [FlightsController::class, 'getFlights'])->name('getFlights');
+
+Route::get('endpoint1', [FlightsController::class, 'endpoint1']);
+Route::get('endpoint2', [FlightsController::class, 'endpoint2']);
+Route::get('endpoint3', [FlightsController::class, 'endpoint3']);

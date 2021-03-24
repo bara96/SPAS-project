@@ -168,7 +168,7 @@ class FlightsController extends BaseController
         $origin_airport_col = '"'.Flight::ORIGIN_AIRPORT_ID.'"';
 
         $flights = DB::table(Flight::TABLE)
-            ->selectRaw("$origin_airport_col, ROUND((COUNT(case when $delayed_dep_col>0 then 1 end)::decimal / COUNT($origin_airport_col)::decimal), 2) as percentage, count(case when $delayed_dep_col>0 then 1 end) as totDelays, count($delayed_dep_col) as totDepartures")
+            ->selectRaw("$origin_airport_col, ROUND((COUNT(case when $delayed_dep_col>0 then 1 end)::decimal / COUNT($origin_airport_col)::decimal), 2) as percentage, count(case when $delayed_dep_col>0 then 1 end) as tot_delayed_departures, count($delayed_dep_col) as tot_departures")
             ->whereBetween(Flight::DEP_TIME, [ $v->validated()['start_time'], $v->validated()['end_time']])
             ->orderBy("percentage", 'desc')
             ->groupBy([Flight::ORIGIN_AIRPORT_ID])

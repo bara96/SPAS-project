@@ -156,13 +156,25 @@ class FlightsController extends BaseController
     public function endpoint3(Request $request)
     {
         $v = Validator::make($request->all(), [
-            'start_date' => 'required|date_format:Y-m-d',
-            'end_date' => 'required|date_format:Y-m-d',
+            'start_time' => 'required|integer|min:0',
+            'end_time' => 'required|integer|min:0',
             'n' => 'required|integer|min:0',
         ]);
         if ($v->fails()) {
             return response()->json($v->messages());
         }
 
+        $delayed_dep_col = '"'.Flight::DEP_DELAY.'"';
+        $origin_airport_col = '"'.Flight::ORIGIN_AIRPORT_ID.'"';
+
+        $flights = DB::table(Flight::TABLE)
+            ->selectRaw("$origin_airport_col, ROUND((COUNT(case when $delayed_dep_col>0 then 1 end)::decimal / COUNT($origin_airport_col)::decimal), 2) as percentage, count(case when $delayed_dep_col>0 then 1 end) as totDelays, count($delayed_dep_col) as totDepartures")
+            ->whereBetween(Flight::DEP_TIME, [ $v->validated()['start_time'], $v->validated()['end_time']])
+            ->orderBy("percentage", 'desc')
+            ->groupBy([Flight::ORIGIN_AIRPORT_ID])
+            ->limit($v->validated()['n'])
+            ->get();
+
+        return response()->json($flights, 200);
     }
 }

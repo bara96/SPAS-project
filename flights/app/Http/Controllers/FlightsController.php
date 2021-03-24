@@ -32,8 +32,8 @@ class FlightsController extends BaseController
             Flight::DEST => "string",
             Flight::DEST_CITY_NAME => "string",
             Flight::DEST_STATE_NM => "string",
-            Flight::DEP_TIME => "string",
-            Flight::DEP_DELAY => "string",
+            Flight::DEP_TIME => "integer",
+            Flight::DEP_DELAY => "integer",
             Flight::ARR_TIME => "string",
             Flight::ARR_DELAY => "string",
             Flight::CANCELLED => "string",
@@ -142,17 +142,17 @@ class FlightsController extends BaseController
             return response()->json($v->messages());
         }
 
-        $id_col = '"'.Flight::ID.'"';
-        $date_col = '"'.Flight::FLIGHT_DATE.'"';
-        $source_city_col = '"'.Flight::ORIGIN_CITY_NAME.'"';
-        $destination_city_col = '"'.Flight::DEST_CITY_NAME.'"';
-        $arr_delay_col = '"'.Flight::ARR_DELAY.'"';
-        $dep_delay_col = '"'.Flight::DEP_DELAY.'"';
+        $ID = '"'.Flight::ID.'"';
+        $FLIGHT_DATE = '"'.Flight::FLIGHT_DATE.'"';
+        $ORIGIN_CITY_NAME = '"'.Flight::ORIGIN_CITY_NAME.'"';
+        $DEST_CITY_NAME = '"'.Flight::DEST_CITY_NAME.'"';
+        $ARR_DELAY = '"'.Flight::ARR_DELAY.'"';
+        $DEP_DELAY = '"'.Flight::DEP_DELAY.'"';
 
         $flights = DB::table(Flight::TABLE)
-            ->selectRaw("$id_col,$date_col,$source_city_col,$destination_city_col,$arr_delay_col,$dep_delay_col, ($arr_delay_col + $dep_delay_col) as tot_delay")
+            ->selectRaw("$ID,$FLIGHT_DATE,$ORIGIN_CITY_NAME,$DEST_CITY_NAME,$ARR_DELAY,$DEP_DELAY, ($ARR_DELAY + $DEP_DELAY) as tot_delay")
             ->whereBetween(Flight::FLIGHT_DATE, [ $v->validated()['start_date'], $v->validated()['end_date']])
-            ->whereRaw("($arr_delay_col + $dep_delay_col) >= ?", [$v->validated()['delay']])
+            ->whereRaw("($ARR_DELAY + $DEP_DELAY) >= ?", [$v->validated()['delay']])
             ->where(Flight::CANCELLED, "<>", "0")
             ->get();
 
@@ -170,11 +170,11 @@ class FlightsController extends BaseController
             return response()->json($v->messages());
         }
 
-        $delayed_dep_col = '"'.Flight::DEP_DELAY.'"';
-        $origin_airport_col = '"'.Flight::ORIGIN_AIRPORT_ID.'"';
+        $DEP_DELAY = '"'.Flight::DEP_DELAY.'"';
+        $ORIGIN_AIRPORT_ID = '"'.Flight::ORIGIN_AIRPORT_ID.'"';
 
         $flights = DB::table(Flight::TABLE)
-            ->selectRaw("$origin_airport_col, ROUND((COUNT(case when $delayed_dep_col>0 then 1 end)::decimal / COUNT($origin_airport_col)::decimal), 2) as percentage, count(case when $delayed_dep_col>0 then 1 end) as tot_delayed_departures, count($delayed_dep_col) as tot_departures")
+            ->selectRaw("$ORIGIN_AIRPORT_ID, ROUND((COUNT(case when $DEP_DELAY>0 then 1 end)::decimal / COUNT($ORIGIN_AIRPORT_ID)::decimal), 2) as percentage, count(case when $DEP_DELAY>0 then 1 end) as tot_delayed_departures, count($ORIGIN_AIRPORT_ID) as tot_departures")
             ->whereBetween(Flight::FLIGHT_DATE, [ $v->validated()['start_date'], $v->validated()['end_date']])
             ->where(Flight::CANCELLED, "<>", "0")
             ->orderBy("percentage", 'desc')

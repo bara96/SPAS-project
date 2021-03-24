@@ -142,16 +142,12 @@ class FlightsController extends BaseController
             return response()->json($v->messages());
         }
 
-        $start_date = $v->validated()['start_date'];
-        $end_date = $v->validated()['end_date'];
-        $delay = $v->validated()['delay'];
-
         $arr_delay_col = '"'.Flight::ARR_DELAY.'"';
         $dep_delay_col = '"'.Flight::DEP_DELAY.'"';
 
         $flights = DB::table(Flight::TABLE)
-            ->whereBetween(Flight::FLIGHT_DATE, [$start_date, $end_date])
-            ->whereRaw("(COALESCE($arr_delay_col,0) + COALESCE($dep_delay_col,0)) >= ?", [$delay])
+            ->whereBetween(Flight::FLIGHT_DATE, [ $v->validated()['start_date'], $v->validated()['end_date']])
+            ->whereRaw("(COALESCE($arr_delay_col,0) + COALESCE($dep_delay_col,0)) >= ?", [$v->validated()['delay']])
             ->get();
 
         return response()->json($flights, 200);
@@ -160,8 +156,8 @@ class FlightsController extends BaseController
     public function endpoint3(Request $request)
     {
         $v = Validator::make($request->all(), [
-            'start_date' => 'required|date_format:yyyymmaa',
-            'end_date' => 'required|date_format:yyyymmaa',
+            'start_date' => 'required|date_format:Y-m-d',
+            'end_date' => 'required|date_format:Y-m-d',
             'n' => 'required|integer|min:0',
         ]);
         if ($v->fails()) {

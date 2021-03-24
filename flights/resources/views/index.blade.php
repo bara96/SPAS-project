@@ -38,6 +38,8 @@
                                 <th scope="col">Destination</th>
                                 <th scope="col">Destination City</th>
                                 <th scope="col">Destination State</th>
+                                <th scope="col">Dep Delay</th>
+                                <th scope="col">Arr Delay</th>
                                 <th scope="col">Cancelled</th>
                             </tr>
                             </thead>
@@ -52,6 +54,8 @@
                                     <td>{{ $flight->dest }}</td>
                                     <td>{{ $flight->dest_city_name }}</td>
                                     <td>{{ $flight->dest_state_nm }}</td>
+                                    <td>{{ $flight->dep_delay }}</td>
+                                    <td>{{ $flight->arr_delay }}</td>
                                     <td>{{ $flight->cancelled == 1 ? '✔' : '✘' }}</td>
                                 </tr>
                             @endforeach

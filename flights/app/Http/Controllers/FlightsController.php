@@ -118,7 +118,6 @@ class FlightsController extends BaseController
         $v = Validator::make($request->all(), [
             Flight::FLIGHT_DATE => 'required|date_format:Y-m-d',
             Flight::ID => 'required|exists:flights|string',
-            'page' => 'integer',
         ]);
         if ($v->fails()) {
             return response()->json($v->messages());
@@ -135,15 +134,27 @@ class FlightsController extends BaseController
     public function endpoint2(Request $request)
     {
         $v = Validator::make($request->all(), [
-            'start_date' => 'required|date_format:yyyymmaa',
-            'end_date' => 'required|date_format:yyyymmaa',
+            'start_date' => 'required|date_format:Y-m-d',
+            'end_date' => 'required|date_format:Y-m-d',
             'delay' => 'required|integer',
-            'page' => 'integer',
         ]);
         if ($v->fails()) {
             return response()->json($v->messages());
         }
 
+        $start_date = $v->validated()['start_date'];
+        $end_date = $v->validated()['end_date'];
+        $delay = $v->validated()['delay'];
+
+        $arr_delay_col = '"'.Flight::ARR_DELAY.'"';
+        $dep_delay_col = '"'.Flight::DEP_DELAY.'"';
+
+        $flights = DB::table(Flight::TABLE)
+            ->whereBetween(Flight::FLIGHT_DATE, [$start_date, $end_date])
+            ->whereRaw("(COALESCE($arr_delay_col,0) + COALESCE($dep_delay_col,0)) >= ?", [$delay])
+            ->get();
+
+        return response()->json($flights, 200);
     }
 
     public function endpoint3(Request $request)
@@ -152,7 +163,6 @@ class FlightsController extends BaseController
             'start_date' => 'required|date_format:yyyymmaa',
             'end_date' => 'required|date_format:yyyymmaa',
             'n' => 'required|integer|min:0',
-            'page' => 'integer',
         ]);
         if ($v->fails()) {
             return response()->json($v->messages());

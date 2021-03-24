@@ -142,12 +142,18 @@ class FlightsController extends BaseController
             return response()->json($v->messages());
         }
 
+        $id_col = '"'.Flight::ID.'"';
+        $date_col = '"'.Flight::FLIGHT_DATE.'"';
+        $source_city_col = '"'.Flight::ORIGIN_CITY_NAME.'"';
+        $destination_city_col = '"'.Flight::DEST_CITY_NAME.'"';
         $arr_delay_col = '"'.Flight::ARR_DELAY.'"';
         $dep_delay_col = '"'.Flight::DEP_DELAY.'"';
 
         $flights = DB::table(Flight::TABLE)
+            ->selectRaw("$id_col,$date_col,$source_city_col,$destination_city_col,$arr_delay_col,$dep_delay_col, ($arr_delay_col + $dep_delay_col) as tot_delay")
             ->whereBetween(Flight::FLIGHT_DATE, [ $v->validated()['start_date'], $v->validated()['end_date']])
-            ->whereRaw("(COALESCE($arr_delay_col,0) + COALESCE($dep_delay_col,0)) >= ?", [$v->validated()['delay']])
+            ->whereRaw("($arr_delay_col + $dep_delay_col) >= ?", [$v->validated()['delay']])
+            ->where(Flight::CANCELLED, "<>", "0")
             ->get();
 
         return response()->json($flights, 200);
@@ -156,8 +162,8 @@ class FlightsController extends BaseController
     public function endpoint3(Request $request)
     {
         $v = Validator::make($request->all(), [
-            'start_time' => 'required|integer|min:0',
-            'end_time' => 'required|integer|min:0',
+            'start_date' => 'required|date_format:Y-m-d',
+            'end_date' => 'required|date_format:Y-m-d',
             'n' => 'required|integer|min:0',
         ]);
         if ($v->fails()) {
@@ -169,7 +175,8 @@ class FlightsController extends BaseController
 
         $flights = DB::table(Flight::TABLE)
             ->selectRaw("$origin_airport_col, ROUND((COUNT(case when $delayed_dep_col>0 then 1 end)::decimal / COUNT($origin_airport_col)::decimal), 2) as percentage, count(case when $delayed_dep_col>0 then 1 end) as tot_delayed_departures, count($delayed_dep_col) as tot_departures")
-            ->whereBetween(Flight::DEP_TIME, [ $v->validated()['start_time'], $v->validated()['end_time']])
+            ->whereBetween(Flight::FLIGHT_DATE, [ $v->validated()['start_date'], $v->validated()['end_date']])
+            ->where(Flight::CANCELLED, "<>", "0")
             ->orderBy("percentage", 'desc')
             ->groupBy([Flight::ORIGIN_AIRPORT_ID])
             ->limit($v->validated()['n'])

@@ -45,11 +45,11 @@ class FlightsImport implements ToModel, WithProgressBar, WithBatchInserts, WithC
 
     public function batchSize(): int
     {
-        return 2000;
+        return 500;
     }
 
     public function chunkSize(): int
     {
-        return 4000;
+        return 2000;
     }
 }

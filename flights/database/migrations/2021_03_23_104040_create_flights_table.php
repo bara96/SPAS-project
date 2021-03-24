@@ -30,9 +30,9 @@ class CreateFlightsTable extends Migration
             $table->string(Flight::DEST_CITY_NAME)->nullable();
             $table->string(Flight::DEST_STATE_NM)->nullable();
             $table->string(Flight::DEP_TIME)->nullable();
-            $table->integer(Flight::DEP_DELAY)->nullable();
+            $table->string(Flight::DEP_DELAY)->nullable();
             $table->string(Flight::ARR_TIME)->nullable();
-            $table->integer(Flight::ARR_DELAY)->nullable();
+            $table->string(Flight::ARR_DELAY)->nullable();
             $table->string(Flight::CANCELLED)->nullable();
             $table->string(Flight::AIR_TIME)->nullable();
             $table->timestamps();

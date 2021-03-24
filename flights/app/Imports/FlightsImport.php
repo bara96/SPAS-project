@@ -35,9 +35,9 @@ class FlightsImport implements ToModel, WithProgressBar, WithBatchInserts, WithC
             Flight::DEST_CITY_NAME => $row[11],
             Flight::DEST_STATE_NM => $row[12],
             Flight::DEP_TIME => $row[13],
-            Flight::DEP_DELAY => intval($row[14]),
+            Flight::DEP_DELAY => $row[14],
             Flight::ARR_TIME => $row[15],
-            Flight::ARR_DELAY => intval($row[16]),
+            Flight::ARR_DELAY => $row[16],
             Flight::CANCELLED => $row[17],
             Flight::AIR_TIME => $row[18],
         ]);

@@ -16,10 +16,11 @@ Download the [repository](https://github.com/bara96/SPAS-project)
 - Copy the file <code> .env.example </code> and rename it to <code> .env </code>
 - Edit the file <code> .env </code> with your db configurations
 - Run the command <code> composer update </code> to update dependencies
-- Run the command <code> php artisan key:generate </code> to generate an Application key
 
 ## 5) Start Laravel
 - Run the command <code> php artisan serve </code>
+- Run the command <code> php artisan key:generate </code> to generate an Application key
+- Run the command <code> php artisan migrate </code> to migrate the database
 - Browse to  http://127.0.0.1:8000/
 
 ## 6) Import Data

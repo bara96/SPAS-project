@@ -14,7 +14,6 @@ Download the [repository](https://github.com/bara96/SPAS-project)
 ## 4) Setup Environment
 - Copy the file <code> .env.example </code> and rename it to <code> .env </code>
 - Edit the file <code> .env </code> with your db configurations
-- On CLI, on to the '_flights_' folder
 - Run the command <code> composer update </code> to update dependencies
 
 ## 5) Start Laravel

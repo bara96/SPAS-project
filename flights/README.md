@@ -18,7 +18,7 @@ Download the [repository](https://github.com/bara96/SPAS-project)
 
 ## 5) Start Laravel
 - On CLI, on to the '_flights_' folder
-- Run the command <code> php artisan serve </code>
+- Run the command <code> php artisan serve </code> to start the dedicated Laravel server
 - Run the command <code> php artisan key:generate </code> to generate an Application key
 - Run the command <code> php artisan migrate </code> to migrate the database
 - Browse to  http://127.0.0.1:8000/

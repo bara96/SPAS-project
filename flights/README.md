@@ -12,12 +12,13 @@ Download the [repository](https://github.com/bara96/SPAS-project)
 **Important:** Laravel project is under the folder '_flights_', switch to that folder
 
 ## 4) Setup Environment
-- On CLI, switch to the '_flights_' folder
 - Copy the file <code> .env.example </code> and rename it to <code> .env </code>
 - Edit the file <code> .env </code> with your db configurations
+- On CLI, on to the '_flights_' folder
 - Run the command <code> composer update </code> to update dependencies
 
 ## 5) Start Laravel
+- On CLI, on to the '_flights_' folder
 - Run the command <code> php artisan serve </code>
 - Run the command <code> php artisan key:generate </code> to generate an Application key
 - Run the command <code> php artisan migrate </code> to migrate the database

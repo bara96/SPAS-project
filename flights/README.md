@@ -24,4 +24,5 @@ Download the [repository](https://github.com/bara96/SPAS-project)
 - Browse to  http://127.0.0.1:8000/
 
 ## 6) Import Data
-To import the flights.csv run the command <code> php artisan import:flights </code>
+To import the flights.csv run the command <code> php artisan import:flights n</code>   
+with n a number between 1-5 (run the command for each number).

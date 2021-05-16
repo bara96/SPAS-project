@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/usr/share/tsung/tsung-1.0.dtd">
+<tsung loglevel="notice" version="1.0">  
+  <!-- Client side setup -->
+  <clients>
+    <client host="localhost" use_controller_vm="true"/>
+  </clients>
+  
+  <!-- Server side setup -->
+  <servers>
+    <server host="10.8.0.1" port="1194" type="udp"></server>
+  </servers>
+
+  <!-- to start os monitoring (cpu, network, memory). Use an erlang
+  agent on the remote machine or SNMP. erlang is the default --> 
+  <monitoring>
+    <monitor host="192.168.1.84" type="snmp"></monitor>
+  </monitoring>
+  
+  <load duration="15" unit="minute">
+  <!-- several arrival phases can be set: for each phase, you can set
+  the mean inter-arrival time between new clients and the phase
+  duration -->
+   <arrivalphase phase="1" duration="1" unit="minute">
+     <users interarrival="2" unit="second"></users>
+   </arrivalphase>
+   
+   <arrivalphase phase="2" duration="1" unit="minute">
+     <users interarrival="1" unit="second"></users>
+   </arrivalphase>
+   
+   <arrivalphase phase="3" duration="1" unit="minute">
+     <users interarrival="0.5" unit="second"></users>
+   </arrivalphase>
+   
+   <arrivalphase phase="4" duration="1" unit="minute">
+     <users interarrival="0.1" unit="second"></users>
+   </arrivalphase>
+  </load>
+
+  <options>
+   <option type="ts_http" name="user_agent">
+    <user_agent probability="20">Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050513 Galeon/1.3.21</user_agent>
+    <user_agent probability="80">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+   </option>
+  </options>
+
+  <!-- start a session for a http user. the probability is the
+  frequency of this type os session. The sum of all session's
+  probabilities must be 100 -->
+
+ <sessions>
+ <!-- endpoint1 -->
+  <session name="endpoint1" weight="1" type="ts_http">
+    <request> 
+		<http url="/api/endpoint1" contents="transaction_id=2&amp;flight_date=2010-01-15" method="GET" version="1.1"></http> 
+	</request> 
+	
+    <thinktime min="5" max="10" random="true"></thinktime>
+  </session>
+  
+  <!-- endpoint2 -->
+  <session name="endpoint2" weight="1" type="ts_http">
+    <setdynvars sourcetype="random_number" start="1" end="50">
+         <var name="delay" />
+    </setdynvars>
+	
+    <request> 
+		<http url="/api/endpoint2" contents="start_date=2010-01-14&amp;end_date=2010-05-16&amp;delay=%%_delay%%" method="GET" version="1.1"></http> 
+	</request> 
+	
+    <thinktime min="5" max="10" random="true"></thinktime>
+  </session>
+  
+  <!-- endpoint3 -->
+  <session name="endpoint3" weight="1" type="ts_http">
+    <setdynvars sourcetype="random_number" start="50" end="500">
+         <var name="number" />
+    </setdynvars>
+	
+    <request> 
+		<http url="/api/endpoint3" contents="start_date=2010-01-14&amp;end_date=2010-05-16&amp;n=%%_number%%" method="GET" version="1.1"></http> 
+	</request> 
+	
+    <thinktime min="5" max="10" random="true"></thinktime>
+  </session>
+ </sessions>
+</tsung>

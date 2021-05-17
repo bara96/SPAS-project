@@ -8,3 +8,5 @@ flights/storage/framework/laravel-excel/
 tsung-requests/bara/snmpm_config_db
 
 *.conf
+
+tsung-requests/snmpm_config_db

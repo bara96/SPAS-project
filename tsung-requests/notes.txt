@@ -1,6 +1,11 @@
+#tsung web server
 http://localhost:8091/es/ts_web:status
 
+#start tsung
 tsung -f http_simple.xml start
+
+#tsung plot
+/usr/local/Cellar/tsung/1.7.0/lib/tsung/bin/tsung_stats.pl
 
 192.168.1.100
 10.8.0.1

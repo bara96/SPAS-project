@@ -9,7 +9,7 @@
   
   <!-- Server side setup -->
 <servers>
-  <server host="10.8.0.1" port="1194" type="udp"></server>
+  <server host="10.8.0.1" port="8080" type="tcp"></server>
 </servers>
 
   <!-- to start os monitoring (cpu, network, memory). Use an erlang

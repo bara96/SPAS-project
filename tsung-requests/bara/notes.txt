@@ -1,5 +1,0 @@
-http://localhost:8091/es/ts_web:status
-
-tsung -f http_simple.xml start
-
-10.8.0.1

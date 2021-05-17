@@ -8,13 +8,13 @@
   
   <!-- Server side setup -->
   <servers>
-    <server host="10.8.0.1" port="1194" type="udp"></server>
+    <server host="10.8.0.1" port="8080" type="tcp"></server>
   </servers>
 
   <!-- to start os monitoring (cpu, network, memory). Use an erlang
   agent on the remote machine or SNMP. erlang is the default --> 
   <monitoring>
-    <monitor host="192.168.1.84" type="snmp"></monitor>
+    <monitor host="10.8.0.1" type="snmp"></monitor>
   </monitoring>
   
   <load duration="15" unit="minute">

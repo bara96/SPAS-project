@@ -38,40 +38,17 @@
   probabilities must be 100 -->
 
  <sessions>
- <!-- endpoint1 -->
-  <session name="endpoint1" weight="1" type="ts_http">
-	<request> 
-		<http url="/api/endpoint1" contents="transaction_id=2&amp;flight_date=2010-01-15" method="GET" version="1.1"></http> 
-	</request>
-	<thinktime min="1" max="2" random="true"></thinktime>
-  </session>
-  
-  <!-- endpoint2 
+  <!-- endpoint2 -->
   <session name="endpoint2" weight="1" type="ts_http">
-    <setdynvars sourcetype="random_number" start="1" end="50">
-         <var name="delay" />
-    </setdynvars>
-	
-    <request> 
-		<http url="/api/endpoint2" contents="start_date=2010-01-14&amp;end_date=2010-05-16&amp;delay=%%_delay%%" method="GET" version="1.1"></http> 
-	</request> 
-	
-    <thinktime min="5" max="10" random="true"></thinktime>
+      <setdynvars sourcetype="random_number" start="1" end="50">
+          <var name="delay" />
+      </setdynvars>
+      
+      <request> 
+          <http url="/api/endpoint2" contents="start_date=2010-01-14&amp;end_date=2010-05-16&amp;delay=%%_delay%%" method="GET" version="1.1"></http> 
+      </request> 
+      
+      <thinktime min="5" max="10" random="true"></thinktime>
   </session>
-  -->
-  
-  <!-- endpoint3 
-  <session name="endpoint3" weight="1" type="ts_http">
-    <setdynvars sourcetype="random_number" start="50" end="500">
-         <var name="number" />
-    </setdynvars>
-	
-    <request> 
-		<http url="/api/endpoint3" contents="start_date=2010-01-14&amp;end_date=2010-05-16&amp;n=%%_number%%" method="GET" version="1.1"></http> 
-	</request> 
-	
-    <thinktime min="5" max="10" random="true"></thinktime>
-  </session>
-  -->
  </sessions>
 </tsung>

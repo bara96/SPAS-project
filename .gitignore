@@ -2,3 +2,11 @@
 flights/.idea/
 
 flights/storage/framework/laravel-excel/
+
+*.Identifier
+
+tsung-requests/bara/snmpm_config_db
+
+*.conf
+
+tsung-requests/snmpm_config_db

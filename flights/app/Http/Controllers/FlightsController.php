@@ -150,9 +150,9 @@ class FlightsController extends BaseController
         $DEP_DELAY = '"'.Flight::DEP_DELAY.'"';
 
         $flights = DB::table(Flight::TABLE)
-            ->selectRaw("$ID,$FLIGHT_DATE,$ORIGIN_CITY_NAME,$DEST_CITY_NAME,$ARR_DELAY,$DEP_DELAY, (COALESCE($ARR_DELAY,0) + COALESCE($DEP_DELAY,0)) as tot_delay")
+            ->selectRaw("$ID,$FLIGHT_DATE,$ORIGIN_CITY_NAME,$DEST_CITY_NAME,$ARR_DELAY,$DEP_DELAY, ($ARR_DELAY + $DEP_DELAY) as tot_delay")
             ->whereBetween(Flight::FLIGHT_DATE, [ $v->validated()['start_date'], $v->validated()['end_date']])
-            ->whereRaw("(COALESCE($ARR_DELAY,0) + COALESCE($DEP_DELAY,0)) >= ?", [$v->validated()['delay']])
+            ->whereRaw("($ARR_DELAY + $DEP_DELAY) >= ?", [$v->validated()['delay']])
             ->where(Flight::CANCELLED, "<>", "0")
             ->get();
 

@@ -42,8 +42,11 @@
  <!-- endpoint1 -->
   <session name="endpoint1" weight="1" type="ts_http">
 	<for from="1" to="1000000" incr="1" var="counter">
+        <setdynvars sourcetype="random_number" start="1" end="521800">
+              <var name="transaction" />
+          </setdynvars>
         <request> 
-			<http url="/api/endpoint1" contents="transaction_id=2&amp;flight_date=2010-01-15" method="GET" version="1.1"></http> 
+			<http url="/api/endpoint1" contents="transaction_id=%%transaction%%&amp;flight_date=2010-01-15" method="GET" version="1.1"></http> 
 		</request>
 		
         <!-- <thinktime value="1" random="true"></thinktime> -->

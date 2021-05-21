@@ -5,7 +5,14 @@ http://localhost:8091/es/ts_web:status
 tsung -f http_simple.xml start
 
 #tsung plot
+#ubuntu
 /usr/local/Cellar/tsung/1.7.0/lib/tsung/bin/tsung_stats.pl
+#debian
+/usr/lib/tsung/bin/tsung_stats.pl
 
+#server monitoring
+dstat --output file.csv
+
+#server ips
 192.168.1.100
 10.8.0.1

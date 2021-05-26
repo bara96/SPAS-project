@@ -11,7 +11,8 @@ tsung -f http_simple.xml start
 /usr/lib/tsung/bin/tsung_stats.pl
 
 #server monitoring
-dstat --output file.csv
+dstat --cpu --disk-tps --load --output Scaricati/endpoint_3_stats.csv
+iostat -y 1 -c -d -k
 
 #server ips
 192.168.1.100

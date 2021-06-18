@@ -48,8 +48,8 @@
           
           <request>
               <http url="/api/endpoint2" contents="start_date=2010-01-14&amp;end_date=2010-05-16&amp;delay=%%_delay%%" method="GET" version="1.1"></http>
-              <thinktime value="10" random="true"></thinktime>
           </request>
+          <thinktime value="10" random="true"></thinktime>
       </for>
   </session>
   
